@@ -48,4 +48,9 @@ RSpec.describe Project, type: :model do
 
     expect(other_project).to be_valid
   end
+
+  it 'is late when the due date is past today' do
+    project = FactoryBot.create(:project_due_yesterday)
+    expect(project).to be_late
+  end
 end

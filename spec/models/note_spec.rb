@@ -15,6 +15,12 @@ RSpec.describe Note, type: :model do
     )
   end
 
+  it 'generates associated data from a factory' do
+    note = FactoryBot.build(:note)
+    puts "This note's project is #{note.project.inspect}"
+    puts "This note's user is #{note.user.inspect}"
+  end
+
   it 'is valid with a user, project, and message' do
     note = described_class.new(user: @user, project: @project, message: 'test message')
     expect(note).to be_valid
