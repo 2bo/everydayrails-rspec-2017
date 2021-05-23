@@ -29,3 +29,5 @@ uniqueness { scope: xxx } でxxx内で一意という制約をつける
 
 [Railsでよく利用する、Scopeの使い方。 - Qiita](https://qiita.com/ngron/items/14a39ce62c9d30bf3ac3)
 * scope :scope_name, ->(arg) { where(name: arg) }
+
+beforeブロックは、describeやcontextブロックによってスコープが限定される
