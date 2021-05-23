@@ -39,3 +39,13 @@ before ブロックは、describe や context ブロックによってスコー�
 - fixture は Active Record を使わずに DB へデータを書き込むため、モデルのバリデーションなどの処理が無視される
 
 - `bin/rails g factory_bot:model user`で user モデルの FactoryBot を作成できる
+
+- controller テストで使った matcher
+
+  - `expect(response).to have_http_status '200'`
+  - `expect(response).to be_success`
+  - `expect(response).to redirect_to root_path`
+  - `expect(response).to redirect_to '/user/sign_in'`
+
+- factory_bot で attribute を取得する
+  - `FactoryBot.attributes_for(:project)`
