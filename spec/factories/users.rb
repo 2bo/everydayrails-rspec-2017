@@ -7,4 +7,8 @@ FactoryBot.define do
     sequence(:email) { |n| "tester#{n}@example.com" }
     password { 'dottle-nouveau-pavilion-tights-furze' }
   end
+
+  trait :invalid do
+    name { nil }
+  end
 end
