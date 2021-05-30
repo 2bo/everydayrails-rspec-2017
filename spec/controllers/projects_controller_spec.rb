@@ -149,4 +149,59 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    context 'as an authorized user' do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: @user)
+      end
+
+      it 'deletes a projecet' do
+        sign_in @user
+        expect do
+          delete :destroy, params: { id: @project.id }
+        end.to change(@user.projects, :count).by(-1)
+      end
+    end
+
+    context 'as an unauthorized user' do
+      before do
+        @user = FactoryBot.create(:user)
+        @other_user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: @other_user)
+      end
+
+      it 'does not delete the project' do
+        sign_in @user
+        expect do
+          delete :destroy, params: { id: @project.id }
+        end.not_to change(Project, :count)
+      end
+
+      it 'redirect to the dashbord' do
+        sign_in @user
+        delete :destroy, params: { id: @project.id }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'as a guest' do
+      before do
+        user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: user)
+      end
+
+      it 'redirect to the sign-in page' do
+        delete :destroy, params: { id: @project.id }
+        expect(response).to redirect_to '/users/sign_in'
+      end
+
+      it 'does not delete project' do
+        expect do
+          delete :destroy, params: { id: @project.id }
+        end.not_to change(Project, :count)
+      end
+    end
+  end
 end
