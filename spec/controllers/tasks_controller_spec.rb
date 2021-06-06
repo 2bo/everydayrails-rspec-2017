@@ -23,7 +23,7 @@ RSpec.describe TasksController, type: :controller do
       new_task = { name: 'New test task' }
       expect do
         post :create, format: :json,
-                       params: { project_id: @project.id, task: new_task }
+                      params: { project_id: @project.id, task: new_task }
       end.not_to change(@project.tasks, :count)
       expect(response).not_to be_success
     end
