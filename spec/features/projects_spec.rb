@@ -14,9 +14,11 @@ RSpec.describe 'Projects', type: :feature do
       fill_in 'project[description]', with: 'Trying out Capybara'
       click_button 'Create Project'
     end.to change(user.projects, :count).by(1)
-
-    expect(page).to have_content 'Project was successfully created'
-    expect(page).to have_content 'Test Project'
-    expect(page).to have_content "Owner: #{user.name}"
+    
+    aggregate_failures do
+      expect(page).to have_content 'Project was successfully created'
+      expect(page).to have_content 'Test Project'
+      expect(page).to have_content "Owner: #{user.name}"
+    end
   end
 end
